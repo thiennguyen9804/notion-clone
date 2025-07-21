@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronLeftIcon, ChevronsLeftIcon, MenuIcon, PlusCircle } from "lucide-react";
+import { ChevronLeftIcon, ChevronsLeftIcon, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { ComponentRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
@@ -10,6 +10,7 @@ import Item from "./item";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import DocumentList from "./document-list";
 
 export default function Navigation() {
   const pathName = usePathname();
@@ -98,8 +99,8 @@ export default function Navigation() {
     toast.promise(promise, {
       loading: 'Creating a new note...',
       success: 'New note created!',
+      error: 'Failed to create a new note.'
     })
-    error: 'Failed to create a new note.'
   }
 
   return (
@@ -126,13 +127,24 @@ export default function Navigation() {
         <div>
           <UserItem />
           <Item
+            label="Search"
+            icon={Search}
+            isSearch
+            onClick={() => { }}
+          />
+          <Item
+            onClick={handleCreate}
+            label='Settings'
+            icon={Settings}
+          />
+          <Item
             onClick={handleCreate}
             label='New page'
             icon={PlusCircle}
           />
         </div>
         <div className="mt-4">
-          <p>Documents</p>
+          <DocumentList />
         </div>
 
         <div
