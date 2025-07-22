@@ -6,6 +6,7 @@ import { useQuery } from "convex/react";
 import { MenuIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import Title from "./title";
+import Banner from "./banner";
 
 
 interface NavbarProps {
@@ -22,7 +23,9 @@ export default function Navbar({
     documentId: params.documentId as Id<'documents'>
   })
   if (document === undefined) {
-    return <p>Loading...</p>
+    return <nav className="bg-background dark:bg-[#1F1F1F] px-3 py-2 w-full flex items-center">
+      <Title.Skeleton />
+    </nav>
   }
 
   if (document === null) {
@@ -41,6 +44,9 @@ export default function Navbar({
           <Title initialData={document} />
         </div>
       </nav>
+      {document.isArchive && (
+        <Banner documentId={document._id} />
+      )}
     </>
   )
 }
