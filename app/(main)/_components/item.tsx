@@ -102,7 +102,7 @@ export default function Item({
       )}
 
       {documentIcon ? (
-        <div>
+        <div className="mr-2">
           {documentIcon}
         </div>
       ) : (
