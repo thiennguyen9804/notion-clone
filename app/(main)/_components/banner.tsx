@@ -47,7 +47,7 @@ export default function Banner({
         size="sm"
         onClick={onRestore}
         variant="outline"
-        className="border-white bg-transparent hover:bg-primary/5 text-white hover:text-white p-1 px-2 h-auto font-normal"
+        className="border-white dark:border-2 bg-transparent hover:bg-primary/5 text-white hover:text-white p-1 px-2 h-auto font-normal"
       >
         Restore page
       </Button>

@@ -16,7 +16,6 @@ import { useParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { SingleImageDropzone } from '../upload/single-image';
 import { UploaderProvider, UploadFn } from '../upload/uploader-provider';
-import { useMeasure } from '@/hooks/use-measure';
 
 interface CoverImageParams extends Params {
   documentId: Id<'documents'>
@@ -29,20 +28,18 @@ export default function CoverImageModal() {
   const { edgestore } = useEdgeStore();
   const update = useMutation(api.documents.update);
   const params = useParams<CoverImageParams>();
-  const [ref, bounds] = useMeasure<any>();
-
-
 
   const uploadFn: UploadFn = useCallback(
     async ({ file, onProgressChange, signal }) => {
+      setIsSubmitting(true);
       const res = await edgestore.publicFiles.upload({
         file,
         signal,
         onProgressChange,
+        options: {
+          replaceTargetUrl: coverImage.url
+        }
       });
-      // you can run some server action or api here
-      // to add the necessary data to your databas
-      //
       await update({
         id: params.documentId,
         coverImage: res.url
@@ -73,7 +70,7 @@ export default function CoverImageModal() {
             <SingleImageDropzone
               width={100}
               height={100} // ví dụ tỉ lệ 3:2
-              className='outline-none'
+              className='w-full outline-none'
               disabled={isSubmitting}
             />
           </UploaderProvider>
