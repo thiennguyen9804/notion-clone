@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 import Navigation from "./_components/navigation";
 import SearchCommand from "@/components/search-command";
 import SettingsModal from "@/components/modals/settings-modal";
+import CoverImageModal from "@/components/modals/cover-image-modal";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -27,6 +28,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <main className="flex-1 h-full overflow-y-auto">
         <SearchCommand />
         <SettingsModal />
+        <CoverImageModal />
         {children}
       </main>
     </div>

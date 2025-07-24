@@ -79,7 +79,6 @@ export default function Item({
   }
 
 
-
   return (
     <div
       onClick={onClick}
@@ -102,7 +101,7 @@ export default function Item({
       )}
 
       {documentIcon ? (
-        <div className="mr-2">
+        <div className="mr-2 shrink-0">
           {documentIcon}
         </div>
       ) : (

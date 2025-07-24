@@ -8,6 +8,7 @@ import { ComponentRef, useRef, useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import TextareaAutosize from 'react-textarea-autosize';
+import { useCoverImage } from "@/hooks/use-cover-image";
 
 interface ToolbarProps {
   initialData: Doc<'documents'>;
@@ -23,6 +24,8 @@ export default function Toolbar({
   const [value, setValue] = useState(initialData.title);
   const update = useMutation(api.documents.update);
   const removeIcon = useMutation(api.documents.removeIcon);
+  const coverImage = useCoverImage();
+
   const enableInput = () => {
     if (preview) return;
     setIsEditing(true);
@@ -62,7 +65,7 @@ export default function Toolbar({
 
   const onRemoveIcon = () => {
     removeIcon({ id: initialData._id });
-  }
+  };
 
   return (
     <div className="pl-[54px] group relative">
@@ -101,7 +104,7 @@ export default function Toolbar({
             className="text-muted-foreground text-xs"
             variant='outline'
             size='sm'
-            onClick={() => { }}
+            onClick={coverImage.onOpen}
           >
             <ImageIcon className="h-4 w-4" />
             Add cover

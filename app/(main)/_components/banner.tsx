@@ -19,15 +19,13 @@ export default function Banner({
   const remove = useMutation(api.documents.remove);
   const restore = useMutation(api.documents.restore);
   const onRemove = () => {
-    const promise = remove({ id: documentId })
-      .then(() => {
-        router.push('/documents');
-      });
+    const promise = remove({ id: documentId });
     toast.promise(promise, {
       loading: 'Deleting note...',
       success: 'Note deleted!',
       error: 'Failed to delete note.'
     });
+    router.push('/documents');
 
   };
 
@@ -55,7 +53,6 @@ export default function Banner({
       </Button>
 
       <ConfirmModal onConfirm={onRemove}>
-
         <Button
           size="sm"
           variant="outline"
