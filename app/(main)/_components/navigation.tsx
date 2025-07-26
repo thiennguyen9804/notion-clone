@@ -16,6 +16,7 @@ import TrashBox from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 import Navbar from "./navbar";
+import { useRouter } from "next/navigation";
 
 export default function Navigation() {
   const pathName = usePathname();
@@ -29,6 +30,7 @@ export default function Navigation() {
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
   const create = useMutation(api.documents.create);
+  const router = useRouter()
 
   useEffect(() => {
     if (isMobile) {
@@ -101,12 +103,14 @@ export default function Navigation() {
   const handleCreate = () => {
     const promise = create({
       title: "Untitled"
+    }).then((documentId) => {
+      router.push(`/documents/${documentId}`)
     });
     toast.promise(promise, {
       loading: 'Creating a new note...',
       success: 'New note created!',
       error: 'Failed to create a new note.'
-    })
+    });
   }
 
   return (
